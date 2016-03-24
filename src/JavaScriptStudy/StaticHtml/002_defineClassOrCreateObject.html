@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script type="text/javascript">
+        //工厂方式
+        function factoryCar() {
+            var car = new Object();
+            car.color = "red";
+            car.price = "122000";
+            car.show = function () {
+                alert(JSON.stringify(this));
+            }
+            return car;
+        }
+
+        var someCar1 = factoryCar();
+        someCar1.show();
+
+       
+    </script>
+</head>
+<body>
+
+</body>
+</html>

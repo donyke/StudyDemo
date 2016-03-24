@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script type="text/javascript">
+        //工厂方式
+        function factoryCar(sColor,iPrice) {
+            var car = new Object();
+            car.color =sColor|| "red";
+            car.price = iPrice||"122000";
+            car.show = function () {
+                alert(JSON.stringify(this));
+            }
+            return car;
+        }
+
+        var someCar = factoryCar();
+        var someCarY = factoryCar("yellow", 16600);
+        //someCar.show();
+        //someCarY.show();
+
+        //构造函数方式
+        //存在问题，这种方式和工厂方式一样会重复生成函数问题，为每个对象都创建独立的函数版本。
+
+        function Car(sColor, iPrice, iMpg) {
+            this.color = sColor;
+            this.price = iPrice;
+            this.mpg = iMpg;
+            this.show = function () {
+                alert(JSON.stringify(this));
+            }
+        }
+
+        var someCar2 = new Car("yellow", 16600, 23);
+        //someCar2.show();
+
+
+
+        //原型方式  
+        //真正的问题是，属性指向的是对象，而不是函数时。函数共享不会照成任何问题，但是对象却是被多个实例共享的。（例如：owners）
+        //  当 someApple2 添加一个owner 时，someApple 的 owners随之改变。
+        function Apple() {
+        }
+        Apple.prototype.color = "red";
+        Apple.prototype.price = 7;
+        Apple.prototype.owners = new Array("Kat");
+        Apple.prototype.show = function () {
+            alert(this.owners);
+        }
+        var someApple = new Apple();        
+        //someApple.show();
+        var someApple2 = new Apple();
+        someApple2.owners.push("Keko");
+        //someApple.show();
+
+
+        //混合的构造函数/原型方式
+        //这种概念非常简单，即用构造函数定义对象的所有非函数属性，用原型方式定义对象的函数属性(方法)。
+
+        function Person(sName, iAge, sGender) {
+            this.name = sName;
+            this.age = iAge;
+            this.gender = sGender;
+            this.firends = new Array("Amy","Alex");
+        }
+        Person.prototype.SayHi = function () {
+            alert(JSON.stringify(this.firends));
+        }
+        var p1 = new Person("p1", 22, "M");
+        p1.firends.push("issa");
+        var p2 = new Person("p2", 18, "F");
+        p2.firends.push("mison");
+        p1.SayHi();
+        p2.SayHi();
+    </script>
+</head>
+<body>
+
+</body>
+</html>
